@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Generador de Versículos Bíblicos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos Generales */
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Georgia', serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #d4af37;
+        }
+        .navbar a {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        /* Encabezado */
+        .header {
+            background: url('https://source.unsplash.com/1600x600/?cross,bible,church') no-repeat center center;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 150px 20px; /* Ajuste para evitar que se tape */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+        .title {
+            font-size: 2.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: fadeInDown 1.5s;
+        }
+        .subtitle {
+            font-size: 1.5rem;
+            font-style: italic;
+            animation: fadeInUp 1.5s;
+        }
+
+        /* Secciones */
+        .section {
+            padding: 60px 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Caja de Versículos */
+        .result-box {
+            background: white;
+            border: 3px solid #d4af37;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1.5s;
+        }
+
+        /* Botón */
+        .btn-custom {
+            background-color: #d4af37;
+            color: white;
+            font-weight: bold;
+            border-radius: 50px;
+            padding: 10px 20px;
+            transition: transform 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: #b8860b;
+            transform: scale(1.1);
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+            .title { font-size: 2rem; } 
+            .subtitle { font-size: 1.2rem; } 
+            .header { padding: 170px 20px; } 
+        }
+
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menú de Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Congregación Luz a las Naciones</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#biblia">Biblia</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#congregacion">Congregación</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#lideres">Líderes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#jedc">J.E.D.C</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Encabezado -->
+    <header class="header">
+        <h1 class="title">CONGREGACIÓN LUZ A LAS NACIONES</h1>
+        <h2 class="subtitle">📖 Generador de Versículos Bíblicos</h2>
+    </header>
+
+    <!-- Secciones -->
+    <div class="container text-center section" id="biblia">
+        <h2 class="mb-4">Generador de Versículos</h2>
+        <p>Presiona el botón para recibir un mensaje de Dios.</p>
+
+        <button class="btn btn-custom btn-lg" onclick="generarVersiculo()">Generar Versículo</button>
+
+        <div class="mt-4 result-box">
+            <h3 id="versiculo" class="text-dark">Esperando generación...</h3>
+        </div>
+    </div>
+
+    <div class="container section" id="congregacion">
+        <h2 class="text-center">Nuestra Congregación</h2>
+        <p class="text-center">Somos una iglesia dedicada a compartir el amor de Cristo y llevar su palabra a todas las naciones.</p>
+    </div>
+
+    <div class="container section" id="lideres">
+        <h2 class="text-center">Líderes Espirituales</h2>
+        <p class="text-center">Contamos con un equipo de líderes dedicados a la enseñanza, la oración y el crecimiento espiritual de la congregación.</p>
+    </div>
+
+    <div class="container section" id="jedc">
+        <h2 class="text-center">J.E.D.C (Jóvenes en Dios Creciendo)</h2>
+        <p class="text-center">Un ministerio juvenil comprometido con el crecimiento espiritual, la adoración y la enseñanza de la Palabra de Dios.</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        const versiculosBiblicos = [
+            { texto: "Porque tanto amó Dios al mundo, que dio a su Hijo unigénito, para que todo el que cree en él no se pierda, sino que tenga vida eterna.", referencia: "Juan 3:16" },
+            { texto: "El Señor es mi pastor, nada me faltará.", referencia: "Salmos 23:1" },
+            { texto: "Todo lo puedo en Cristo que me fortalece.", referencia: "Filipenses 4:13" },
+            { texto: "Confía en el Señor con todo tu corazón y no te apoyes en tu propia prudencia.", referencia: "Proverbios 3:5" }
+        ];
+
+        function generarVersiculo() {
+            const randomIndex = Math.floor(Math.random() * versiculosBiblicos.length);
+            const versiculo = versiculosBiblicos[randomIndex];
+            document.getElementById("versiculo").innerHTML = `<p>"${versiculo.texto}"</p><strong>- ${versiculo.referencia}</strong>`;
+        }
+
+        document.addEventListener("scroll", function () {
+            document.querySelectorAll(".section").forEach(section => {
+                if (section.getBoundingClientRect().top < window.innerHeight - 100) {
+                    section.classList.add("show");
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
